@@ -63,4 +63,9 @@ export default async (req) => {
     console.error(err);
     return new Response("Server error", { status: 500 });
   }
+if (!payload.prompt || !payload.prompt.template) {
+  return new Response("Invalid payload", { status: 400 });
+}
+
+
 };
