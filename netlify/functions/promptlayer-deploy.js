@@ -1,10 +1,13 @@
 export default async (req) => {
-  try {
-    // 1️⃣ אימות בסיסי (סוד שאתה קובע)
-    const secret = req.headers["x-pl-secret"];
-    if (secret !== process.env.PROMPTLAYER_WEBHOOK_SECRET) {
-      return new Response("Unauthorized", { status: 401 });
-    }
+  const url = new URL(req.url);
+  const secret = url.searchParams.get("secret");
+
+  if (secret !== process.env.PROMPTLAYER_WEBHOOK_SECRET) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
+  // ממשיכים רגיל
+};
 
     const payload = await req.json();
 
